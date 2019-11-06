@@ -1,0 +1,82 @@
+#Step 1: Summarizing Function to understand the distribution of a vector
+
+#Function-name printVecInfo
+
+value <- c(1,2,3,4,5,6,7,8,9,10,50)
+hist(value)
+curve(value)
+
+#Function 
+
+printVecInfo <- function(value) {
+		mean <- mean(value)
+		median <-median (value)
+		max <- max(value)
+		min <- min (value) 
+		StandardDeviation <- sd(value)
+		Qualtile <- quantile (value, probs = c(0.05, 0.95)) or quantile(value)
+		Skewness <- skewness(value)
+		cat(paste("mean:",mean,"\nmedian:",median, "\nmax:",max, "\nmin:",min, "\nsd:",StandardDeviation, "\nquantile:",Qualtile, "\nskewness:", Skewness))
+}
+printVecInfo (value)
+
+#Step 2: Creating Samples in a Jar 
+
+Blue <- "Blue Marbles"
+Red <- "Red Marbles" 
+
+RepBlue <- replicate(50,Blue)
+RepRed <- replicate(50,Red) 
+
+Jar <- c(RepBlue,RepRed)
+
+Jar
+
+#Confirm there are 50 reds by summing the samples that are red 
+SampleJar <- sample(Jar, 10)
+RedCount <- length(SampleJar[SampleJar=="Red Marbles"])
+RedCount
+
+RedPercent <- RedCount / length(SampleJar) * 100
+RedPercent 
+
+repsamp <- function(x) {
+
+sample <- sample(x,10,replace=TRUE)
+number <- length(sample[sample==red])
+return(number)
+
+}
+
+mean(replicate(20,sample(Jar)))
+# Question 7c
+samMeans <- replicate(20,mean(replicate(20,sample(Jar))))
+printVecInfo(samMeans)
+means2 <- replicate(20,mean(replicate(100,sample(Jar))))
+printVecInfo(samMeans2)
+
+means3 <- replicate(100,mean(replicate(100,sample(Jar))))
+printVecInfo(samMeans2)
+
+
+#Step 3: Explore Air Quality Data
+
+a <- airquality 
+
+any(is.na(a))
+length (a[a=='NA'])
+str(a)
+ax <- na.omit(a)
+
+rownames(a) <- NULL 
+
+Ozone <- a[,1]
+Wind <- a[,3]
+Temp <- a[,4]
+
+printVecInfo(Ozone)
+hist(Ozone)
+printVecInfo(Wind)
+hist(Wind)
+printVecInfo(Temp)
+hist(Temp)
